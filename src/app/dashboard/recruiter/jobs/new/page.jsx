@@ -21,6 +21,9 @@ import {
     ChevronDown,
     Xmark
 } from "@gravity-ui/icons";
+import { toast } from "react-toastify";
+import { createJob } from "@/lib/actions/jobs";
+import { redirect } from "next/navigation";
 
 export default function PostJobPage() {
     const [isRemote, setIsRemote] = useState(false);
@@ -49,7 +52,7 @@ export default function PostJobPage() {
         e.preventDefault();
 
         if (!companyData.isApproved) {
-            alert("Your company account must be approved before publishing active jobs on HireLoop.");
+            toast.error("Your company account must be approved before publishing active jobs on HireLoop.");
             return;
         }
 
@@ -80,11 +83,17 @@ export default function PostJobPage() {
             visibility: "public"
         };
 
-        console.log("Submitting to HireLoop Backend Blueprint:", payload);
+        const result = await createJob(payload);
+        if(result.insertedId) {
+            toast.success("Job vacancy successfully published to the HireLoop public directory!");
+            e.target.reset();
+            redirect("/dashboard/recruiter");
+        } else {
+            toast.error("Failed to publish job vacancy.");
+        }
 
         setTimeout(() => {
             setIsLoading(false);
-            alert("Job vacancy successfully published to the HireLoop public directory!");
         }, 1200);
     };
 
