@@ -7,7 +7,7 @@ export default function DashboardSidebar() {
         { icon: House, href: '/dashboard/recruiter', label: "Home" },
         { icon: Bell, href: '/dashboard/recruiter/jobs', label: "Jobs" },
         { icon: Plus, href: '/dashboard/recruiter/jobs/new', label: "Add A New Job" },
-        { icon: Briefcase, href: '/dashboard/recruiter/company-profile', label: "Company Profile" },
+        { icon: Briefcase, href: '/dashboard/recruiter/company', label: "Company Profile" },
         { icon: Envelope,href:'/dashboard/recruiter', label: "Messages" },
         { icon: Person, href: '/dashboard/recruiter', label: "Profile" },
         { icon: Gear,href:'/dashboard/recruiter', label: "Settings" },

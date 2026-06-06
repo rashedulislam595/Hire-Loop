@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Form, TextField, Label, Input, Select, ListBox, TextArea, Button, Chip } from "@heroui/react";
 import { Factory, Globe, Pin, Persons, Clouds, Pencil, ArrowLeft,ChevronDown } from "@gravity-ui/icons";
 import Image from 'next/image';
+import { createCompany } from '@/lib/actions/company';
+import { toast } from 'react-toastify';
 
 export default function CompanyWorkspace({ initialCompany = null }) {
   // --- STATES ---
@@ -68,9 +70,14 @@ export default function CompanyWorkspace({ initialCompany = null }) {
     };
 
     console.log("Company Data to Save:", companyData);
-    // এখানে ডাটাবেজে সেভ করার API কল করবেন 
-    // e.g., await saveCompanyToDb(companyData);
-    
+
+    const result = await createCompany(companyData)
+    if(result.insertedId){
+        toast.success("Company profile created successfully! Awaiting admin approval.");
+    }else{
+        toast.error("Failed to create company profile. Please try again.");
+    }
+
     setCompany(companyData);
     setIsEditing(false);
     setIsSubmitting(false);
