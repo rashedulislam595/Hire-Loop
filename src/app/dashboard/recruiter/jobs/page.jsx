@@ -1,11 +1,12 @@
 import { JobsTableList } from '@/components/dashboard/JobTableList';
+import { getLoggedInRecruiterCompany } from '@/lib/api/company';
 import { getJobs } from '@/lib/api/jobs';
 import React from 'react';
 
 const RecruiterJobsPage = async () => {
-    const companyId = "co_9837421"; //todo: Replace with actual company ID
+    const company = await getLoggedInRecruiterCompany(); //todo: Replace with actual company ID
 
-    const jobs = await getJobs(companyId);
+    const jobs = await getJobs(company._id);
     // console.log("Fetched jobs for company:", jobs);
 
     return (
