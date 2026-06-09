@@ -64,7 +64,7 @@ const jobs = [
   },
 ];
 
-export default function JObCard() {
+export default function JobsCard() {
   return (
     <section className="bg-black text-white sm:pt-44 pt-96 pb-20 px-4 md:px-8 ">
       <div className="max-w-7xl mx-auto">
