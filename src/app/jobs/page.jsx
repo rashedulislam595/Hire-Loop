@@ -4,7 +4,7 @@ import React from 'react';
 
 
 
-export default async function CompaniesPage() {
+export default async function JobsPage() {
     const jobs = await getAllJobs();
     return (
     <div className="min-h-screen bg-[#09090b] text-zinc-200 antialiased py-12 px-4 sm:px-8 md:px-12 lg:px-16">

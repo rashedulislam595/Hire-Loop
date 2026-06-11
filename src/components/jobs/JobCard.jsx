@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, Button, Chip } from "@heroui/react";
 import { Globe, Pin, ArrowRight, CircleCheck } from "@gravity-ui/icons";
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function JobCard({ job }) {
   // ডাটা থেকে প্রয়োজনীয় ফিল্ডগুলো এক্সট্র্যাক্ট করা হলো
@@ -98,12 +99,12 @@ export default function JobCard({ job }) {
           </span>
 
           {/* Interactive Trigger Button */}
-          <Button 
+          <Link href={`/jobs/${job._id}`}
             variant="light" 
             className="text-zinc-300 hover:text-white bg-transparent p-0 min-w-0 h-auto font-semibold text-xs flex items-center gap-1.5 hover:gap-2.5 transition-all outline-none"
           >
             View Openings <ArrowRight width={14} height={14} className="text-zinc-400" />
-          </Button>
+          </Link>
         </div>
 
       </div>
