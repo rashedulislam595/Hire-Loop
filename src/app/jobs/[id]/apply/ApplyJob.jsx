@@ -35,6 +35,7 @@ const ApplyJob = ({ applicant, job }) => {
         const applicationPayload = {
             jobId: job?._id?.$oid || job?._id,
             jobTitle: job?.title,
+            applicantId: applicant?.id,
             companyName: job?.name,
             ...formData,
         };
