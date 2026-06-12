@@ -2,25 +2,21 @@
 
 import { useState } from "react";
 import { Card, CardContent, Button, Label, RadioGroup, Radio } from "@heroui/react";
-import {
-  FiUser,
-  FiMail,
-  FiLock,
-  FiArrowRight,
-  FiEye,
-  FiEyeOff,
-  FiGithub,
-} from "react-icons/fi";
+import { FiUser, FiMail, FiLock, FiArrowRight, FiEye, FiEyeOff, FiGithub } from "react-icons/fi";
 import { FaGoogle } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 
 // import { authClient } from "@/lib/auth-client";
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -33,12 +29,11 @@ export default function RegisterPage() {
       email: e.target.email.value,
       password: e.target.password.value,
       role: e.target.role.value,
-      callbackURL: "/login",
     });
     // console.log("response",{data,error})
     if (data) {
       toast.success("signUp Successful!", { theme: "dark", position: "top-center" })
-      redirect('/login')
+      router.push(redirectTo);
     } else {
       toast.error(error.message, { theme: "dark", position: "top-center" })
     }
@@ -297,7 +292,7 @@ export default function RegisterPage() {
                 <p className="text-center text-sm text-gray-400 pt-2">
                   Already have an account?{" "}
                   <Link
-                    href="/login"
+                    href={`/login?redirect=${redirectTo}`}
                     className="text-violet-400 hover:text-violet-300 font-medium"
                   >
                     Sign In

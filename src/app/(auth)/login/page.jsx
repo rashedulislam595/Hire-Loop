@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, Button } from "@heroui/react";
 import {
   FiMail,
@@ -22,6 +22,8 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -46,7 +48,7 @@ export default function SignInPage() {
           position: "top-center",
         });
 
-        router.push("/");
+        router.push(redirectTo);
       } else {
         toast.error(error?.message || "Login failed", {
           theme: "dark",
@@ -243,7 +245,7 @@ export default function SignInPage() {
                 <p className="text-center text-gray-400 text-sm pt-3">
                   Don’t have an account?{" "}
                   <Link
-                    href="/register"
+                    href={`/register?redirect=${redirectTo}`}
                     className="text-violet-400 hover:text-violet-300"
                   >
                     Create account
