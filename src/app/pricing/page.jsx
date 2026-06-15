@@ -10,7 +10,8 @@ import {
     Briefcase,
     Rocket,
     // Zap,
-    Star
+    Star,
+    CrownDiamond
 } from '@gravity-ui/icons';
 
 const PricingPage = () => {
@@ -47,7 +48,7 @@ const PricingPage = () => {
             price: '$19',
             period: '/month',
             description: 'Our most popular option for serious active candidates looking to rapidly accelerate landing a role.',
-            icon: <Star className="w-5 h-5 text-blue-400" />,
+            icon: <CrownDiamond className="w-5 h-5 text-blue-400" />,
             features: [
                 'Apply to up to 30 jobs per month',
                 'Unlimited saved jobs',
