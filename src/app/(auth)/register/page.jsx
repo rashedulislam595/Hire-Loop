@@ -29,6 +29,7 @@ export default function RegisterPage() {
       email: e.target.email.value,
       password: e.target.password.value,
       role: e.target.role.value,
+      plan: e.target.role.value == 'seeker'?'seeker_free':'recruiter_free'
     });
     // console.log("response",{data,error})
     if (data) {

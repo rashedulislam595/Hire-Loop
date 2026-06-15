@@ -5,6 +5,7 @@ import React from 'react';
 import { Button, Card, Separator } from "@heroui/react";
 import { CheckCircle2, Mail, ArrowRight, HelpCircle } from "lucide-react";
 import Link from 'next/link';
+import { createSubscription } from '@/lib/actions/subscriptions';
 
 export default async function Success({ searchParams }) {
     const { session_id } = await searchParams;
@@ -15,7 +16,8 @@ export default async function Success({ searchParams }) {
 
     const {
         status,
-        customer_details: { email: customerEmail }
+        customer_details: { email: customerEmail },
+        metadata
     } = await stripe.checkout.sessions.retrieve(session_id, {
         expand: ['line_items', 'payment_intent']
     });
@@ -25,6 +27,12 @@ export default async function Success({ searchParams }) {
     }
 
     if (status === 'complete') {
+        const subInfo = {
+            email: customerEmail,
+            planId: metadata.planId
+        }
+        const result = await createSubscription(subInfo) 
+        
         return (
             <div className="min-h-screen bg-[#09090b] text-zinc-100 flex items-center justify-center p-4 sm:p-6">
 

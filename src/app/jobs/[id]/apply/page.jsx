@@ -5,6 +5,7 @@ import React from 'react';
 import ApplyJob from './ApplyJob';
 import { getApplicationByApplicantId } from '@/lib/api/application';
 import Link from 'next/link'; // Imported Link for navigation
+import { getPlansByPlanId } from '@/lib/api/plans';
 
 const ApplyPage = async ({ params }) => {
     const { id } = await params;
@@ -34,13 +35,14 @@ const ApplyPage = async ({ params }) => {
     }
 
     const application = await getApplicationByApplicantId(user.id);
-    const plan = {
-        name: "free",
-        maxApplications: 3
-    };
+    // const plan = {
+    //     name: "free",
+    //     maxApplications: 3
+    // };
+    const plan = await getPlansByPlanId(user?.plan)
 
     const job = await getJobById(id);
-    const isLimitReached = application.length >= plan.maxApplications;
+    const isLimitReached = application.length >= plan.maxApplicationPerMonth;
 
     return (
         <div className='min-h-screen bg-[#09090b] text-zinc-100 py-12 px-4 sm:px-6 lg:px-8'>
@@ -52,7 +54,7 @@ const ApplyPage = async ({ params }) => {
                         <p className='text-xs font-medium text-zinc-500 tracking-wide uppercase mb-1'>Application Status</p>
                         <h2 className='text-base sm:text-lg font-semibold'>
                             Applied to <span className='text-blue-400 font-bold'>{application.length}</span> 
-                            out of <span className='text-emerald-400 font-bold'>{plan.maxApplications}</span> jobs on your <span className='capitalize text-zinc-300'>{plan.name}</span> plan.
+                            out of <span className='text-emerald-400 font-bold'>{plan.maxApplicationPerMonth}</span> jobs on your <span className='capitalize text-zinc-300'>{plan.planName}</span> plan.
                         </h2>
                     </div>
                     
