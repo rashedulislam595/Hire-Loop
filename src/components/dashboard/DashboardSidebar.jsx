@@ -1,7 +1,7 @@
 import { getUserSession } from "@/lib/core/session";
 import { LayoutSideContent, Bell, Envelope, Gear, House, Plus, Person, Briefcase } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
-import { Bookmark, CreditCard, FileText, LayoutDashboard, Search, Settings } from "lucide-react";
+import { Bookmark, Building, CreditCard, FileText, LayoutDashboard, Search, Settings, Users } from "lucide-react";
 import Link from "next/link";
 
 export default async function DashboardSidebar() {
@@ -26,9 +26,19 @@ export default async function DashboardSidebar() {
         { icon: Gear, href: '/dashboard/recruiter', label: "Settings" },
     ];
 
+    const adminSideNav = [
+    { icon: LayoutDashboard, href: '/dashboard/admin', label: "Dashboard" },
+    { icon: Users, href: '/dashboard/admin/users', label: "Users" },
+    { icon: Building, href: '/dashboard/admin/companies', label: "Companies" },
+    { icon: Briefcase, href: '/dashboard/admin/jobs', label: "Jobs" },
+    { icon: CreditCard, href: '/dashboard/admin/payments', label: "Payments" },
+    { icon: Gear, href: '/dashboard/admin/settings', label: "Settings" }
+];
+
     const sideBarNavItems = {
         seeker: seekerSideNav,
         recruiter: recruiterSideNav,
+        admin: adminSideNav
     }
 
     const navItems = sideBarNavItems[user?.role || 'seeker'];

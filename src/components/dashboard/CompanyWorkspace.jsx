@@ -66,11 +66,11 @@ export default function CompanyWorkspace({ recruiter = null, recruiterCompany })
             employeeCount: formData.get("employeeCount"),
             description: formData.get("description"),
             logo: logoUrl,
-            status: company?.status || "pending", // ডিফল্ট স্ট্যাটাস pending সেট হবে
+            status: company && company.status ? company.status : "pending", // ডিফল্ট স্ট্যাটাস pending সেট হবে
             recruiterId: recruiter?.id || null, // রিক্রুটারের আইডি সংযুক্ত করা হবে
         };
 
-        console.log("Company Data to Save:", companyData);
+        // console.log("Company Data to Save:", companyData);
 
         const result = await createCompany(companyData)
         if (result.insertedId) {
@@ -87,7 +87,7 @@ export default function CompanyWorkspace({ recruiter = null, recruiterCompany })
     // --- ADMIN STATUS BADGE CONFIG ---
     const getStatusChip = (status) => {
         const variants = {
-            pending: { color: "warning", label: "Pending Approval" },
+            pending: { color: "warning", label: "Pending" },
             approved: { color: "success", label: "Approved" },
             rejected: { color: "danger", label: "Rejected" }
         };
