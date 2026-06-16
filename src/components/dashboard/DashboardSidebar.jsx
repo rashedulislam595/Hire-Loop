@@ -8,22 +8,22 @@ export default async function DashboardSidebar() {
     const user = await getUserSession();
 
     const seekerSideNav = [
-    { icon: LayoutDashboard, href: '/dashboard/seeker', label: "Dashboard" },
-    { icon: Search, href: '/dashboard/seeker/jobs', label: "Jobs" },
-    { icon: Bookmark, href: '/dashboard/seeker/saved-jobs', label: "Saved Jobs" },
-    { icon: FileText, href: '/dashboard/seeker/applications', label: "Applications" },
-    { icon: CreditCard, href: '/dashboard/seeker/billing', label: "Billing" },
-    { icon: Settings, href: '/dashboard/seeker/settings', label: "Settings" }
-];
+        { icon: LayoutDashboard, href: '/dashboard/seeker', label: "Dashboard" },
+        { icon: Search, href: '/dashboard/seeker/jobs', label: "Jobs" },
+        { icon: Bookmark, href: '/dashboard/seeker/saved-jobs', label: "Saved Jobs" },
+        { icon: FileText, href: '/dashboard/seeker/applications', label: "Applications" },
+        { icon: CreditCard, href: '/dashboard/seeker/billing', label: "Billing" },
+        { icon: Settings, href: '/dashboard/seeker/settings', label: "Settings" }
+    ];
 
     const recruiterSideNav = [
         { icon: House, href: '/dashboard/recruiter', label: "Home" },
         { icon: Bell, href: '/dashboard/recruiter/jobs', label: "Jobs" },
         { icon: Plus, href: '/dashboard/recruiter/jobs/new', label: "Add A New Job" },
         { icon: Briefcase, href: '/dashboard/recruiter/company', label: "Company Profile" },
-        { icon: Envelope,href:'/dashboard/recruiter', label: "Messages" },
+        { icon: Envelope, href: '/dashboard/recruiter', label: "Messages" },
         { icon: Person, href: '/dashboard/recruiter', label: "Profile" },
-        { icon: Gear,href:'/dashboard/recruiter', label: "Settings" },
+        { icon: Gear, href: '/dashboard/recruiter', label: "Settings" },
     ];
 
     const sideBarNavItems = {
@@ -31,7 +31,7 @@ export default async function DashboardSidebar() {
         recruiter: recruiterSideNav,
     }
 
-    const navItems = sideBarNavItems[user?.role || 'seeker']; 
+    const navItems = sideBarNavItems[user?.role || 'seeker'];
 
     const navLinks = <nav className="flex flex-col gap-1">
         {navItems.map((item) => (
@@ -48,9 +48,9 @@ export default async function DashboardSidebar() {
 
     return (
         <>
-        <aside className="hidden lg:block w-64 p-4">
-            {navLinks}
-        </aside>
+            <aside className="hidden lg:block w-64 p-4">
+                {navLinks}
+            </aside>
 
             <Drawer>
                 <Button className="lg:hidden" variant="secondary">
