@@ -7,11 +7,6 @@ import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 
-const navLinks = [
-  { name: "Browse Jobs", href: "/jobs" },
-  { name: "Company", href: "/company" },
-  { name: "Pricing", href: "/pricing" },
-];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,6 +15,24 @@ export default function Navbar() {
   // console.log(session)
 
   const user = session?.user;
+
+  const navLinks = [
+    { name: "Browse Jobs", href: "/jobs" },
+    { name: "Company", href: "/company" },
+    { name: "Pricing", href: "/pricing" },
+  ];
+
+  const dashboardLinks={
+    seeker:'/dashboard/seeker',
+    recruiter:'/dashboard/recruiter'
+  }
+
+  if(user?.email){
+    navLinks.push({
+      name: "Dashboard",
+      href: dashboardLinks[user?.role || "seeker"]
+    })
+  }
 
   const handleLogout = async () => {
     try {
@@ -132,9 +145,8 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       <div
-        className={`overflow-hidden transition-all duration-300 lg:hidden ${
-          isMenuOpen ? "max-h-[500] border-t border-white/10" : "max-h-0"
-        }`}
+        className={`overflow-hidden transition-all duration-300 lg:hidden ${isMenuOpen ? "max-h-[500] border-t border-white/10" : "max-h-0"
+          }`}
       >
         <div className="space-y-5 px-4 py-5">
 

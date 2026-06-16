@@ -1,9 +1,22 @@
+import { getUserSession } from "@/lib/core/session";
 import { LayoutSideContent, Bell, Envelope, Gear, House, Plus, Person, Briefcase } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
+import { Bookmark, CreditCard, FileText, LayoutDashboard, Search, Settings } from "lucide-react";
 import Link from "next/link";
 
-export default function DashboardSidebar() {
-    const navItems = [
+export default async function DashboardSidebar() {
+    const user = await getUserSession();
+
+    const seekerSideNav = [
+    { icon: LayoutDashboard, href: '/dashboard/seeker', label: "Dashboard" },
+    { icon: Search, href: '/dashboard/seeker/jobs', label: "Jobs" },
+    { icon: Bookmark, href: '/dashboard/seeker/saved-jobs', label: "Saved Jobs" },
+    { icon: FileText, href: '/dashboard/seeker/applications', label: "Applications" },
+    { icon: CreditCard, href: '/dashboard/seeker/billing', label: "Billing" },
+    { icon: Settings, href: '/dashboard/seeker/settings', label: "Settings" }
+];
+
+    const recruiterSideNav = [
         { icon: House, href: '/dashboard/recruiter', label: "Home" },
         { icon: Bell, href: '/dashboard/recruiter/jobs', label: "Jobs" },
         { icon: Plus, href: '/dashboard/recruiter/jobs/new', label: "Add A New Job" },
@@ -12,6 +25,13 @@ export default function DashboardSidebar() {
         { icon: Person, href: '/dashboard/recruiter', label: "Profile" },
         { icon: Gear,href:'/dashboard/recruiter', label: "Settings" },
     ];
+
+    const sideBarNavItems = {
+        seeker: seekerSideNav,
+        recruiter: recruiterSideNav,
+    }
+
+    const navItems = sideBarNavItems[user?.role || 'seeker']; 
 
     const navLinks = <nav className="flex flex-col gap-1">
         {navItems.map((item) => (
